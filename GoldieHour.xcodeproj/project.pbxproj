@@ -1,0 +1,471 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2DBB3B3886CA5FE0479F9A50 /* GoldieHourApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE95F2FEA3B59EEB5A44B75 /* GoldieHourApp.swift */; };
+		3A96A8324B75C2167C4225B2 /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8995E2B815915A069E6F9AB1 /* Coordinate.swift */; };
+		5CDD9DE96D8FBCB6660B00B3 /* SolarCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29D8523FC011DB219398449 /* SolarCalculator.swift */; };
+		709D2CC8B6E572F17F18BBEA /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C6F36AA4CC14C0A0529B7C /* AppModel.swift */; };
+		BA825636B9C1DD4F17F2738D /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D1EEB390FC6A21E956A7B5 /* Theme.swift */; };
+		E980A31FA256FD9133F34EC4 /* SolarCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60884AA6D62C869D2161A80 /* SolarCalculatorTests.swift */; };
+		EEE499F6C9EF577502F8ABA3 /* MapScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61067E70F0E93AFAD1BA675D /* MapScreen.swift */; };
+		F21982426FC60B96ECDA1CA0 /* SolarSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3128CDB3BEB6148F633CED0B /* SolarSchedule.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9CFD7D48B9EDB15C99358573 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6D53548B7D40D98AD37A5979 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F7FF3DF867B701DCEA252382;
+			remoteInfo = GoldieHour;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		3128CDB3BEB6148F633CED0B /* SolarSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolarSchedule.swift; sourceTree = "<group>"; };
+		61067E70F0E93AFAD1BA675D /* MapScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapScreen.swift; sourceTree = "<group>"; };
+		63D1EEB390FC6A21E956A7B5 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		6707086FEA8FCC9E44328500 /* GoldieHourTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = GoldieHourTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8995E2B815915A069E6F9AB1 /* Coordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
+		8ADA0BFC59379B855EF09B1A /* GoldieHour.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = GoldieHour.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D29D8523FC011DB219398449 /* SolarCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolarCalculator.swift; sourceTree = "<group>"; };
+		D6C6F36AA4CC14C0A0529B7C /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+		DFE95F2FEA3B59EEB5A44B75 /* GoldieHourApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoldieHourApp.swift; sourceTree = "<group>"; };
+		F60884AA6D62C869D2161A80 /* SolarCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolarCalculatorTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		0EF504CC9A9FDF9B53AF3DBE = {
+			isa = PBXGroup;
+			children = (
+				13C3DC4AEFBB9CE062E524C5 /* GoldieHour */,
+				4AA92E4E8DCCCE84FB12C292 /* GoldieHourTests */,
+				D89EB2573542B69FFA49EE0F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		13C3DC4AEFBB9CE062E524C5 /* GoldieHour */ = {
+			isa = PBXGroup;
+			children = (
+				DFE95F2FEA3B59EEB5A44B75 /* GoldieHourApp.swift */,
+				E6A9593BD663AD6A97B9A971 /* App */,
+				FCD113182F0B1D3EE74BD369 /* Design */,
+				8E3AF66C1876E37060601E68 /* Features */,
+				EAC278BBB70244FFF538B89D /* Models */,
+				F3A4EB90C0D335796B881F52 /* Services */,
+			);
+			path = GoldieHour;
+			sourceTree = "<group>";
+		};
+		46807486DE156AA18D5F6234 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				61067E70F0E93AFAD1BA675D /* MapScreen.swift */,
+			);
+			path = Map;
+			sourceTree = "<group>";
+		};
+		4AA92E4E8DCCCE84FB12C292 /* GoldieHourTests */ = {
+			isa = PBXGroup;
+			children = (
+				F60884AA6D62C869D2161A80 /* SolarCalculatorTests.swift */,
+			);
+			path = GoldieHourTests;
+			sourceTree = "<group>";
+		};
+		8E3AF66C1876E37060601E68 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				46807486DE156AA18D5F6234 /* Map */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		D89EB2573542B69FFA49EE0F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8ADA0BFC59379B855EF09B1A /* GoldieHour.app */,
+				6707086FEA8FCC9E44328500 /* GoldieHourTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E6A9593BD663AD6A97B9A971 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				D6C6F36AA4CC14C0A0529B7C /* AppModel.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		EAC278BBB70244FFF538B89D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8995E2B815915A069E6F9AB1 /* Coordinate.swift */,
+				3128CDB3BEB6148F633CED0B /* SolarSchedule.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		F3A4EB90C0D335796B881F52 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				D29D8523FC011DB219398449 /* SolarCalculator.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		FCD113182F0B1D3EE74BD369 /* Design */ = {
+			isa = PBXGroup;
+			children = (
+				63D1EEB390FC6A21E956A7B5 /* Theme.swift */,
+			);
+			path = Design;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C877DF3983682C30AF2C0F8B /* GoldieHourTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8242C07AC39D2E25C6FD2D4A /* Build configuration list for PBXNativeTarget "GoldieHourTests" */;
+			buildPhases = (
+				B949CA8CEB35572169C347C6 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1CD52231C752C5D861EFA6D0 /* PBXTargetDependency */,
+			);
+			name = GoldieHourTests;
+			packageProductDependencies = (
+			);
+			productName = GoldieHourTests;
+			productReference = 6707086FEA8FCC9E44328500 /* GoldieHourTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		F7FF3DF867B701DCEA252382 /* GoldieHour */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9530416CD8810ACDEAA345F1 /* Build configuration list for PBXNativeTarget "GoldieHour" */;
+			buildPhases = (
+				8857AF2764428E66F5B7B34B /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GoldieHour;
+			packageProductDependencies = (
+			);
+			productName = GoldieHour;
+			productReference = 8ADA0BFC59379B855EF09B1A /* GoldieHour.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6D53548B7D40D98AD37A5979 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = F54CD905AE4C0E20D0914211 /* Build configuration list for PBXProject "GoldieHour" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 0EF504CC9A9FDF9B53AF3DBE;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = D89EB2573542B69FFA49EE0F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F7FF3DF867B701DCEA252382 /* GoldieHour */,
+				C877DF3983682C30AF2C0F8B /* GoldieHourTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8857AF2764428E66F5B7B34B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				709D2CC8B6E572F17F18BBEA /* AppModel.swift in Sources */,
+				3A96A8324B75C2167C4225B2 /* Coordinate.swift in Sources */,
+				2DBB3B3886CA5FE0479F9A50 /* GoldieHourApp.swift in Sources */,
+				EEE499F6C9EF577502F8ABA3 /* MapScreen.swift in Sources */,
+				5CDD9DE96D8FBCB6660B00B3 /* SolarCalculator.swift in Sources */,
+				F21982426FC60B96ECDA1CA0 /* SolarSchedule.swift in Sources */,
+				BA825636B9C1DD4F17F2738D /* Theme.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B949CA8CEB35572169C347C6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E980A31FA256FD9133F34EC4 /* SolarCalculatorTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1CD52231C752C5D861EFA6D0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F7FF3DF867B701DCEA252382 /* GoldieHour */;
+			targetProxy = 9CFD7D48B9EDB15C99358573 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1F1F21A6412CC3ED4CD17421 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.goldiehour.app.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GoldieHour.app/GoldieHour";
+			};
+			name = Debug;
+		};
+		50D8969EEDE74815C9101190 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = GoldieHour;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "GoldieHour uses your location to show nearby places and their best light times.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.goldiehour.app;
+				PRODUCT_NAME = GoldieHour;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		B38953D45F0A0BFE9FDED98A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		E141A8DC5AC5FDA5E8D12D28 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = GoldieHour;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "GoldieHour uses your location to show nearby places and their best light times.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.goldiehour.app;
+				PRODUCT_NAME = GoldieHour;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		F47DC442F35BE9926A2B53A0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		FA27EB09A7F7093AFB132ED9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.goldiehour.app.tests;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GoldieHour.app/GoldieHour";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8242C07AC39D2E25C6FD2D4A /* Build configuration list for PBXNativeTarget "GoldieHourTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1F1F21A6412CC3ED4CD17421 /* Debug */,
+				FA27EB09A7F7093AFB132ED9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		9530416CD8810ACDEAA345F1 /* Build configuration list for PBXNativeTarget "GoldieHour" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E141A8DC5AC5FDA5E8D12D28 /* Debug */,
+				50D8969EEDE74815C9101190 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F54CD905AE4C0E20D0914211 /* Build configuration list for PBXProject "GoldieHour" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F47DC442F35BE9926A2B53A0 /* Debug */,
+				B38953D45F0A0BFE9FDED98A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6D53548B7D40D98AD37A5979 /* Project object */;
+}
