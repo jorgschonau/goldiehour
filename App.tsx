@@ -7,10 +7,10 @@ import {
 } from 'react';
 import {
   Alert,
+  LayoutAnimation,
   Linking,
   Pressable,
   SafeAreaView,
-  ScrollView,
   StyleSheet,
   Text,
   View,
@@ -87,6 +87,7 @@ export default function App() {
   const [qualityFilter, setQualityFilter] =
     useState<SpotQualityFilter>('all');
   const [spotSort, setSpotSort] = useState<SpotSort>('quality');
+  const [filtersExpanded, setFiltersExpanded] = useState(false);
   const visibleSpots = useMemo(
     () => filterAndSortSpots(spots, qualityFilter, spotSort, region),
     [qualityFilter, region, spotSort, spots],
@@ -267,60 +268,92 @@ export default function App() {
             <Text style={styles.dateText}>Today</Text>
           </View>
         </View>
+        {!selectedSpot && (
+          <View style={styles.controlsWrapper}>
+            <Pressable
+              accessibilityLabel={
+                filtersExpanded ? 'Hide filters' : 'Show filters'
+              }
+              accessibilityRole="button"
+              accessibilityState={{ expanded: filtersExpanded }}
+              onPress={() => {
+                LayoutAnimation.configureNext(
+                  LayoutAnimation.Presets.easeInEaseOut,
+                );
+                setFiltersExpanded((expanded) => !expanded);
+              }}
+              style={({ pressed }) => [
+                styles.controlsToggle,
+                pressed && styles.pressed,
+              ]}
+            >
+              <Text style={styles.controlsToggleText}>Filters</Text>
+              <Text style={styles.controlsToggleChevron}>
+                {filtersExpanded ? '▲' : '▼'}
+              </Text>
+            </Pressable>
+
+            {filtersExpanded && (
+              <View style={styles.controlsContainer}>
+                <Text style={styles.panelSectionLabel}>PLACE TYPE</Text>
+                <View style={styles.panelChips}>
+                  {PLACE_FILTERS.map((filter) => {
+                    const selected = selectedCategories.includes(
+                      filter.category,
+                    );
+                    return (
+                      <FilterChip
+                        key={filter.category}
+                        label={filter.label}
+                        selected={selected}
+                        onPress={() => toggleCategory(filter.category)}
+                      />
+                    );
+                  })}
+                </View>
+
+                <View style={styles.panelSeparator} />
+                <Text style={styles.panelSectionLabel}>QUALITY</Text>
+                <View style={styles.panelChips}>
+                  {QUALITY_FILTERS.map((filter) => (
+                    <FilterChip
+                      key={filter.value}
+                      label={filter.label}
+                      selected={qualityFilter === filter.value}
+                      onPress={() => {
+                        setQualityFilter(filter.value);
+                        setSelectedSpot(undefined);
+                      }}
+                    />
+                  ))}
+                </View>
+
+                <View style={styles.panelSeparator} />
+                <Text style={styles.panelSectionLabel}>SORT</Text>
+                <View style={styles.panelChips}>
+                  {SORT_OPTIONS.map((option) => (
+                    <FilterChip
+                      key={option.value}
+                      label={option.label}
+                      selected={spotSort === option.value}
+                      onPress={() => {
+                        setSpotSort(option.value);
+                        setSelectedSpot(undefined);
+                      }}
+                    />
+                  ))}
+                </View>
+                <Text style={styles.qualityNote}>
+                  Quality uses place type and OpenStreetMap detail, not weather.
+                </Text>
+              </View>
+            )}
+          </View>
+        )}
       </SafeAreaView>
 
       {!selectedSpot && (
         <SafeAreaView pointerEvents="box-none" style={styles.bottomOverlay}>
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.filterContent}
-            style={styles.filters}
-          >
-            {PLACE_FILTERS.map((filter) => {
-              const selected = selectedCategories.includes(filter.category);
-              return (
-                <FilterChip
-                  key={filter.category}
-                  label={filter.label}
-                  selected={selected}
-                  onPress={() => toggleCategory(filter.category)}
-                />
-              );
-            })}
-          </ScrollView>
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.filterContent}
-            style={styles.filters}
-          >
-            <Text style={styles.filterGroupLabel}>QUALITY</Text>
-            {QUALITY_FILTERS.map((filter) => (
-              <FilterChip
-                key={filter.value}
-                label={filter.label}
-                selected={qualityFilter === filter.value}
-                onPress={() => {
-                  setQualityFilter(filter.value);
-                  setSelectedSpot(undefined);
-                }}
-              />
-            ))}
-            <View style={styles.filterDivider} />
-            <Text style={styles.filterGroupLabel}>SORT</Text>
-            {SORT_OPTIONS.map((option) => (
-              <FilterChip
-                key={option.value}
-                label={option.label}
-                selected={spotSort === option.value}
-                onPress={() => {
-                  setSpotSort(option.value);
-                  setSelectedSpot(undefined);
-                }}
-              />
-            ))}
-          </ScrollView>
           {(message ?? resultMessage) && (
             <Text style={styles.message}>{message ?? resultMessage}</Text>
           )}
@@ -380,6 +413,7 @@ const styles = StyleSheet.create({
     top: 0,
     right: 0,
     left: 0,
+    zIndex: 10,
   },
   header: {
     flexDirection: 'row',
@@ -388,6 +422,77 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,252,247,0.94)',
     paddingHorizontal: 18,
     paddingVertical: 12,
+  },
+  controlsWrapper: {
+    marginTop: 7,
+    marginRight: 80,
+    marginLeft: 10,
+  },
+  controlsToggle: {
+    minHeight: 46,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderWidth: 1.5,
+    borderColor: '#B95B2D',
+    borderRadius: 12,
+    backgroundColor: 'rgba(255,252,247,0.97)',
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    shadowColor: '#211E19',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 4,
+    elevation: 4,
+  },
+  controlsToggleText: {
+    color: '#8B4524',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  controlsToggleChevron: {
+    width: 18,
+    color: '#8B4524',
+    fontSize: 13,
+    fontWeight: '700',
+    textAlign: 'center',
+  },
+  controlsContainer: {
+    borderWidth: 1.5,
+    borderColor: '#D8D0C5',
+    borderRadius: 12,
+    backgroundColor: 'rgba(255,252,247,0.98)',
+    marginTop: 6,
+    paddingHorizontal: 12,
+    paddingVertical: 12,
+    shadowColor: '#211E19',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 4,
+    elevation: 4,
+  },
+  panelSectionLabel: {
+    color: '#8B8378',
+    fontSize: 9,
+    fontWeight: '800',
+    letterSpacing: 0.9,
+    marginBottom: 8,
+  },
+  panelChips: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+  },
+  panelSeparator: {
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: '#DDD6CC',
+    marginVertical: 12,
+  },
+  qualityNote: {
+    color: '#777066',
+    fontSize: 10,
+    lineHeight: 14,
+    marginTop: 10,
   },
   eyebrow: {
     color: '#655D53',
@@ -420,29 +525,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,252,247,0.95)',
     paddingHorizontal: 16,
     paddingTop: 10,
-  },
-  filters: {
-    marginHorizontal: -16,
-    marginBottom: 10,
-  },
-  filterContent: {
-    alignItems: 'center',
-    gap: 7,
-    paddingHorizontal: 16,
-    paddingTop: 5,
-  },
-  filterGroupLabel: {
-    color: '#8B8378',
-    fontSize: 9,
-    fontWeight: '800',
-    letterSpacing: 0.8,
-    marginRight: 2,
-  },
-  filterDivider: {
-    width: 1,
-    height: 22,
-    backgroundColor: '#D8D0C5',
-    marginHorizontal: 3,
   },
   message: {
     color: '#4D4841',
