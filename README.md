@@ -1,23 +1,53 @@
 # GoldieHour
 
-Native iOS app for finding nearby places and planning around golden hour.
+An iOS-first Expo app for finding nearby outdoor places and planning around
+golden hour.
 
-## Requirements
+## Run without Xcode
 
-- Full Xcode installation
-- iOS 17 or later
-- XcodeGen (`brew install xcodegen`) when regenerating the project
-
-## Project setup
-
-`project.yml` is the source of truth for the Xcode project:
+Install [Expo Go](https://expo.dev/go) on the iPhone, then:
 
 ```sh
-xcodegen generate
-open GoldieHour.xcodeproj
+npm install
+npm run go
 ```
 
-The MVP intentionally has no third-party runtime dependencies and no backend.
+Scan the QR code with the iPhone. Local Xcode is not required for this workflow.
+If the phone cannot reach the Mac on the local network, use `npm run tunnel`.
+
+## Cloud iOS builds
+
+EAS builds and signs the iOS app on Expo's macOS infrastructure:
+
+```sh
+npx eas-cli login
+npx eas-cli init
+npx eas-cli build --platform ios --profile preview
+```
+
+Use the `production` profile for an App Store build. Expo and Apple credentials
+are configured interactively and are never committed to this repository.
+
+## Checks
+
+```sh
+npm run typecheck
+npm run doctor
+npx expo export --platform ios
+```
+
+## Architecture
+
+- Expo SDK 54 and React Native
+- Apple Maps through `react-native-maps` on iOS
+- Location through `expo-location`
+- Local NOAA-based solar calculations
+- Local coordinate-to-time-zone lookup
+- OpenStreetMap/Overpass for outdoor-place discovery
+- EAS for cloud builds and App Store delivery
+
+The MVP has no app backend, account system, analytics SDK, or copied SunNomad
+secrets and services.
 
 ## Solar definitions
 
@@ -26,4 +56,4 @@ The MVP intentionally has no third-party runtime dependencies and no backend.
 - Evening golden hour: solar elevation falling from +6° to −4°
 
 Calculations run locally using NOAA solar-position equations and the selected
-place’s civil date and time zone.
+place's civil date and time zone.
