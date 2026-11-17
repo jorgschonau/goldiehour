@@ -31,6 +31,8 @@ targets:
         INFOPLIST_KEY_CFBundleDisplayName: GoldieHour
         INFOPLIST_KEY_ITSAppUsesNonExemptEncryption: false
         INFOPLIST_KEY_NSLocationWhenInUseUsageDescription: GoldieHour uses your location to show nearby places and their best light times.
+        INFOPLIST_KEY_UILaunchScreen_Generation: true
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: true
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         TARGETED_DEVICE_FAMILY: "1"
         SUPPORTS_MACCATALYST: false

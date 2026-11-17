@@ -7,11 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0592DDD5B1B6A9BE7BC87EDE /* SpotSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92ED2E3067B17AFC86C62BF0 /* SpotSearchService.swift */; };
 		2DBB3B3886CA5FE0479F9A50 /* GoldieHourApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE95F2FEA3B59EEB5A44B75 /* GoldieHourApp.swift */; };
 		3A96A8324B75C2167C4225B2 /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8995E2B815915A069E6F9AB1 /* Coordinate.swift */; };
+		59D242AF37A827721AC523AF /* SpotSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4311146CF49D1492560CA9 /* SpotSheet.swift */; };
 		5CDD9DE96D8FBCB6660B00B3 /* SolarCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29D8523FC011DB219398449 /* SolarCalculator.swift */; };
+		6D3D9CEF796CF9CB5CD4D1FC /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 579609DB52C4A4C5BA8FCAD2 /* LocationService.swift */; };
 		709D2CC8B6E572F17F18BBEA /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C6F36AA4CC14C0A0529B7C /* AppModel.swift */; };
+		760AE4FD2540D4C463324530 /* SpotAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44F886579AEA9CD665E47437 /* SpotAnnotationView.swift */; };
+		93F76358461CF5703AC12237 /* Spot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090E12FB3C52B42378060435 /* Spot.swift */; };
 		BA825636B9C1DD4F17F2738D /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D1EEB390FC6A21E956A7B5 /* Theme.swift */; };
+		E242424CEDC6F3E91499598C /* SpotSearchServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5688DAAA84717E512C30C3 /* SpotSearchServiceTests.swift */; };
 		E980A31FA256FD9133F34EC4 /* SolarCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60884AA6D62C869D2161A80 /* SolarCalculatorTests.swift */; };
 		EEE499F6C9EF577502F8ABA3 /* MapScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61067E70F0E93AFAD1BA675D /* MapScreen.swift */; };
 		F21982426FC60B96ECDA1CA0 /* SolarSchedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3128CDB3BEB6148F633CED0B /* SolarSchedule.swift */; };
@@ -28,12 +34,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		090E12FB3C52B42378060435 /* Spot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spot.swift; sourceTree = "<group>"; };
 		3128CDB3BEB6148F633CED0B /* SolarSchedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolarSchedule.swift; sourceTree = "<group>"; };
+		44F886579AEA9CD665E47437 /* SpotAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotAnnotationView.swift; sourceTree = "<group>"; };
+		4E4311146CF49D1492560CA9 /* SpotSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotSheet.swift; sourceTree = "<group>"; };
+		579609DB52C4A4C5BA8FCAD2 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		61067E70F0E93AFAD1BA675D /* MapScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapScreen.swift; sourceTree = "<group>"; };
 		63D1EEB390FC6A21E956A7B5 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		6707086FEA8FCC9E44328500 /* GoldieHourTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = GoldieHourTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8995E2B815915A069E6F9AB1 /* Coordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
 		8ADA0BFC59379B855EF09B1A /* GoldieHour.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = GoldieHour.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		92ED2E3067B17AFC86C62BF0 /* SpotSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotSearchService.swift; sourceTree = "<group>"; };
+		BC5688DAAA84717E512C30C3 /* SpotSearchServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotSearchServiceTests.swift; sourceTree = "<group>"; };
 		D29D8523FC011DB219398449 /* SolarCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolarCalculator.swift; sourceTree = "<group>"; };
 		D6C6F36AA4CC14C0A0529B7C /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
 		DFE95F2FEA3B59EEB5A44B75 /* GoldieHourApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoldieHourApp.swift; sourceTree = "<group>"; };
@@ -67,6 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				61067E70F0E93AFAD1BA675D /* MapScreen.swift */,
+				44F886579AEA9CD665E47437 /* SpotAnnotationView.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -75,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				F60884AA6D62C869D2161A80 /* SolarCalculatorTests.swift */,
+				BC5688DAAA84717E512C30C3 /* SpotSearchServiceTests.swift */,
 			);
 			path = GoldieHourTests;
 			sourceTree = "<group>";
@@ -83,8 +97,17 @@
 			isa = PBXGroup;
 			children = (
 				46807486DE156AA18D5F6234 /* Map */,
+				CC3629EF4720E3C8B370AD41 /* Spot */,
 			);
 			path = Features;
+			sourceTree = "<group>";
+		};
+		CC3629EF4720E3C8B370AD41 /* Spot */ = {
+			isa = PBXGroup;
+			children = (
+				4E4311146CF49D1492560CA9 /* SpotSheet.swift */,
+			);
+			path = Spot;
 			sourceTree = "<group>";
 		};
 		D89EB2573542B69FFA49EE0F /* Products */ = {
@@ -109,6 +132,7 @@
 			children = (
 				8995E2B815915A069E6F9AB1 /* Coordinate.swift */,
 				3128CDB3BEB6148F633CED0B /* SolarSchedule.swift */,
+				090E12FB3C52B42378060435 /* Spot.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -116,7 +140,9 @@
 		F3A4EB90C0D335796B881F52 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				579609DB52C4A4C5BA8FCAD2 /* LocationService.swift */,
 				D29D8523FC011DB219398449 /* SolarCalculator.swift */,
+				92ED2E3067B17AFC86C62BF0 /* SpotSearchService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -206,9 +232,14 @@
 				709D2CC8B6E572F17F18BBEA /* AppModel.swift in Sources */,
 				3A96A8324B75C2167C4225B2 /* Coordinate.swift in Sources */,
 				2DBB3B3886CA5FE0479F9A50 /* GoldieHourApp.swift in Sources */,
+				6D3D9CEF796CF9CB5CD4D1FC /* LocationService.swift in Sources */,
 				EEE499F6C9EF577502F8ABA3 /* MapScreen.swift in Sources */,
 				5CDD9DE96D8FBCB6660B00B3 /* SolarCalculator.swift in Sources */,
 				F21982426FC60B96ECDA1CA0 /* SolarSchedule.swift in Sources */,
+				93F76358461CF5703AC12237 /* Spot.swift in Sources */,
+				760AE4FD2540D4C463324530 /* SpotAnnotationView.swift in Sources */,
+				0592DDD5B1B6A9BE7BC87EDE /* SpotSearchService.swift in Sources */,
+				59D242AF37A827721AC523AF /* SpotSheet.swift in Sources */,
 				BA825636B9C1DD4F17F2738D /* Theme.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -218,6 +249,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E980A31FA256FD9133F34EC4 /* SolarCalculatorTests.swift in Sources */,
+				E242424CEDC6F3E91499598C /* SpotSearchServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,6 +291,8 @@
 				INFOPLIST_KEY_CFBundleDisplayName = GoldieHour;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "GoldieHour uses your location to show nearby places and their best light times.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -340,6 +374,8 @@
 				INFOPLIST_KEY_CFBundleDisplayName = GoldieHour;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "GoldieHour uses your location to show nearby places and their best light times.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

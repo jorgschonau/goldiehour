@@ -17,6 +17,18 @@ struct Coordinate: Codable, Hashable, Sendable {
         self.init(latitude: coordinate.latitude, longitude: coordinate.longitude)
     }
 
+    init?(validating coordinate: CLLocationCoordinate2D) {
+        guard
+            CLLocationCoordinate2DIsValid(coordinate),
+            coordinate.latitude.isFinite,
+            coordinate.longitude.isFinite
+        else {
+            return nil
+        }
+
+        self.init(coordinate)
+    }
+
     var clLocationCoordinate: CLLocationCoordinate2D {
         CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
     }
