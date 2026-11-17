@@ -4,6 +4,7 @@ import {
   Linking,
   Pressable,
   SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
   View,
@@ -22,7 +23,16 @@ import {
   requestLocation,
 } from './src/services/location';
 import { searchSpots } from './src/services/spotSearch';
-import type { Coordinate, Spot } from './src/types';
+import type { Coordinate, Spot, SpotCategory } from './src/types';
+
+const PLACE_FILTERS: Array<{ category: SpotCategory; label: string }> = [
+  { category: 'viewpoint', label: 'Viewpoints' },
+  { category: 'beach', label: 'Water' },
+  { category: 'nature', label: 'Nature' },
+  { category: 'park', label: 'Parks' },
+  { category: 'camp', label: 'Camping' },
+];
+const DEFAULT_FILTERS: SpotCategory[] = ['viewpoint', 'beach', 'nature'];
 
 const FALLBACK_REGION: Region = {
   latitude: 30,
@@ -46,6 +56,8 @@ export default function App() {
   const [isLocating, setIsLocating] = useState(false);
   const [message, setMessage] = useState<string>();
   const [showsBrandSplash, setShowsBrandSplash] = useState(true);
+  const [selectedCategories, setSelectedCategories] =
+    useState<SpotCategory[]>(DEFAULT_FILTERS);
 
   const finishBrandSplash = useCallback(() => {
     setShowsBrandSplash(false);
@@ -126,13 +138,27 @@ export default function App() {
     }
   }
 
+  function toggleCategory(category: SpotCategory) {
+    const isSelected = selectedCategories.includes(category);
+    if (isSelected && selectedCategories.length === 1) return;
+
+    setSelectedCategories(
+      isSelected
+        ? selectedCategories.filter((value) => value !== category)
+        : [...selectedCategories, category],
+    );
+    setSpots([]);
+    setSelectedSpot(undefined);
+    setMessage('Search again to apply the filters.');
+  }
+
   async function handleSearch() {
     setIsSearching(true);
     setSelectedSpot(undefined);
     setMessage(undefined);
 
     try {
-      const results = await searchSpots(region);
+      const results = await searchSpots(region, selectedCategories);
       setSpots(results.slice(0, 40));
       setMessage(
         results.length === 0
@@ -205,6 +231,37 @@ export default function App() {
 
       {!selectedSpot && (
         <SafeAreaView pointerEvents="box-none" style={styles.bottomOverlay}>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.filterContent}
+            style={styles.filters}
+          >
+            {PLACE_FILTERS.map((filter) => {
+              const selected = selectedCategories.includes(filter.category);
+              return (
+                <Pressable
+                  accessibilityRole="button"
+                  accessibilityState={{ selected }}
+                  key={filter.category}
+                  onPress={() => toggleCategory(filter.category)}
+                  style={[
+                    styles.filterChip,
+                    selected && styles.filterChipSelected,
+                  ]}
+                >
+                  <Text
+                    style={[
+                      styles.filterText,
+                      selected && styles.filterTextSelected,
+                    ]}
+                  >
+                    {filter.label}
+                  </Text>
+                </Pressable>
+              );
+            })}
+          </ScrollView>
           {message && <Text style={styles.message}>{message}</Text>}
           <View style={styles.actions}>
             <Pressable
@@ -302,6 +359,34 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,252,247,0.95)',
     paddingHorizontal: 16,
     paddingTop: 10,
+  },
+  filters: {
+    marginHorizontal: -16,
+    marginBottom: 10,
+  },
+  filterContent: {
+    gap: 7,
+    paddingHorizontal: 16,
+  },
+  filterChip: {
+    borderWidth: 1,
+    borderColor: '#CFC5B8',
+    borderRadius: 16,
+    backgroundColor: '#FFFCF7',
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+  },
+  filterChipSelected: {
+    borderColor: '#B95B2D',
+    backgroundColor: '#F7E7D2',
+  },
+  filterText: {
+    color: '#777066',
+    fontSize: 12,
+    fontWeight: '700',
+  },
+  filterTextSelected: {
+    color: '#8B4524',
   },
   message: {
     color: '#4D4841',

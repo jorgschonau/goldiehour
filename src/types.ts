@@ -3,13 +3,20 @@ export type Coordinate = {
   longitude: number;
 };
 
+export type SpotCategory =
+  | 'viewpoint'
+  | 'beach'
+  | 'park'
+  | 'nature'
+  | 'camp';
+
 export type Spot = {
   id: string;
   name: string;
   coordinate: Coordinate;
   locality?: string;
   region?: string;
-  category: 'viewpoint' | 'beach' | 'park' | 'nature' | 'camp';
+  category: SpotCategory;
   timeZone: string;
   elevationMeters?: number;
   access?: string;

@@ -1,10 +1,10 @@
 import type { Region } from 'react-native-maps';
 import tzLookup from 'tz-lookup';
 
-import type { Spot } from '../types';
+import type { Spot, SpotCategory } from '../types';
 
 const NOMINATIM_URL = 'https://nominatim.openstreetmap.org/search';
-const SEARCHES: Array<{ query: string; category: Spot['category'] }> = [
+const SEARCHES: Array<{ query: string; category: SpotCategory }> = [
   { query: 'viewpoint', category: 'viewpoint' },
   { query: 'nature reserve', category: 'nature' },
   { query: 'beach', category: 'beach' },
@@ -29,9 +29,16 @@ type NominatimPlace = {
   };
 };
 
-export async function searchSpots(region: Region): Promise<Spot[]> {
+export async function searchSpots(
+  region: Region,
+  categories: readonly SpotCategory[],
+): Promise<Spot[]> {
   const searchRegion = cappedSearchRegion(region);
-  const cacheKey = `${searchRegion.latitude.toFixed(2)}:${searchRegion.longitude.toFixed(2)}`;
+  const selectedSearches = SEARCHES.filter((search) =>
+    categories.includes(search.category),
+  );
+  const categoryKey = [...categories].sort().join(',');
+  const cacheKey = `${searchRegion.latitude.toFixed(2)}:${searchRegion.longitude.toFixed(2)}:${categoryKey}`;
   const cached = cache.get(cacheKey);
   if (cached) return cached;
 
@@ -39,7 +46,7 @@ export async function searchSpots(region: Region): Promise<Spot[]> {
   const results: Spot[] = [];
   let completedSearches = 0;
 
-  for (const search of SEARCHES) {
+  for (const search of selectedSearches) {
     const startedAt = Date.now();
     try {
       const places = await searchNominatim(search.query, viewbox);
