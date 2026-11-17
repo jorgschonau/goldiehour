@@ -43,7 +43,7 @@ npx expo export --platform ios
 - Location through `expo-location`
 - Local NOAA-based solar calculations
 - Local coordinate-to-time-zone lookup
-- OpenStreetMap/Overpass for outdoor-place discovery
+- OpenStreetMap/Nominatim for outdoor-place discovery
 - EAS for cloud builds and App Store delivery
 
 The MVP has no app backend, account system, analytics SDK, or copied SunNomad

@@ -117,11 +117,6 @@ export default function App() {
   }
 
   async function handleSearch() {
-    if (region.latitudeDelta > 3 || region.longitudeDelta > 3) {
-      setMessage('Zoom in before searching this area.');
-      return;
-    }
-
     setIsSearching(true);
     setSelectedSpot(undefined);
     setMessage(undefined);
