@@ -13,6 +13,7 @@ import {
   solarSchedule,
   todayInTimeZone,
 } from '../services/solar';
+import { qualityLabel } from '../services/spotQuality';
 import type { Spot } from '../types';
 
 type Props = {
@@ -28,13 +29,16 @@ export function SpotCard({ spot, onClose }: Props) {
 
   const region = [spot.locality, spot.region].filter(Boolean).join(', ');
   const profile = spotProfile(spot);
-  const strengths = [
-    ...profile.strengths,
-    ...(spot.elevationMeters !== undefined
-      ? [`${Math.round(spot.elevationMeters)} m elevation`]
-      : []),
-    ...accessStrength(spot.access),
-  ];
+  const strengths = Array.from(
+    new Set([
+      ...spot.qualitySignals,
+      ...profile.strengths,
+      ...(spot.elevationMeters !== undefined
+        ? [`${Math.round(spot.elevationMeters)} m elevation`]
+        : []),
+      ...accessStrength(spot.access),
+    ]),
+  ).slice(0, 6);
 
   async function openDirections() {
     const { latitude, longitude } = spot.coordinate;
@@ -71,7 +75,13 @@ export function SpotCard({ spot, onClose }: Props) {
 
       <View style={styles.qualityBox}>
         <Text style={styles.qualityEyebrow}>WHY THIS SPOT WORKS</Text>
+        <Text style={styles.qualityLevel}>
+          {qualityLabel(spot.qualityScore)}
+        </Text>
         <Text style={styles.qualityReason}>{profile.reason}</Text>
+        <Text style={styles.qualityMethod}>
+          Ranked from place type and OpenStreetMap detail, not weather.
+        </Text>
         <View style={styles.strengths}>
           {strengths.map((strength) => (
             <View key={strength} style={styles.strengthChip}>
@@ -293,6 +303,18 @@ const styles = StyleSheet.create({
     color: '#3D3933',
     fontSize: 13,
     lineHeight: 18,
+    marginTop: 5,
+  },
+  qualityLevel: {
+    color: '#8B4524',
+    fontSize: 15,
+    fontWeight: '800',
+    marginTop: 5,
+  },
+  qualityMethod: {
+    color: '#777066',
+    fontSize: 11,
+    lineHeight: 15,
     marginTop: 5,
   },
   strengths: {

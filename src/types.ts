@@ -10,6 +10,10 @@ export type SpotCategory =
   | 'nature'
   | 'camp';
 
+export type SpotQualityFilter = 'all' | 'good' | 'top';
+
+export type SpotSort = 'quality' | 'distance';
+
 export type Spot = {
   id: string;
   name: string;
@@ -21,6 +25,8 @@ export type Spot = {
   elevationMeters?: number;
   access?: string;
   description?: string;
+  qualityScore: number;
+  qualitySignals: string[];
 };
 
 export type LocalDate = {

@@ -1,4 +1,10 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import {
   Alert,
   Linking,
@@ -15,6 +21,7 @@ import { StatusBar } from 'expo-status-bar';
 import MapView, { Marker, type Region } from 'react-native-maps';
 
 import { BrandSplash } from './src/components/BrandSplash';
+import { FilterChip } from './src/components/FilterChip';
 import { SpotCard } from './src/components/SpotCard';
 import { SpotMarker } from './src/components/SpotMarker';
 import {
@@ -22,8 +29,15 @@ import {
   refreshLocation,
   requestLocation,
 } from './src/services/location';
+import { filterAndSortSpots } from './src/services/spotQuality';
 import { searchSpots } from './src/services/spotSearch';
-import type { Coordinate, Spot, SpotCategory } from './src/types';
+import type {
+  Coordinate,
+  Spot,
+  SpotCategory,
+  SpotQualityFilter,
+  SpotSort,
+} from './src/types';
 
 const PLACE_FILTERS: Array<{ category: SpotCategory; label: string }> = [
   { category: 'viewpoint', label: 'Viewpoints' },
@@ -33,6 +47,18 @@ const PLACE_FILTERS: Array<{ category: SpotCategory; label: string }> = [
   { category: 'camp', label: 'Camping' },
 ];
 const DEFAULT_FILTERS: SpotCategory[] = ['viewpoint', 'beach', 'nature'];
+const QUALITY_FILTERS: Array<{
+  value: SpotQualityFilter;
+  label: string;
+}> = [
+  { value: 'all', label: 'All' },
+  { value: 'good', label: 'Good+' },
+  { value: 'top', label: 'Top only' },
+];
+const SORT_OPTIONS: Array<{ value: SpotSort; label: string }> = [
+  { value: 'quality', label: 'Best first' },
+  { value: 'distance', label: 'Nearest' },
+];
 
 const FALLBACK_REGION: Region = {
   latitude: 30,
@@ -58,6 +84,19 @@ export default function App() {
   const [showsBrandSplash, setShowsBrandSplash] = useState(true);
   const [selectedCategories, setSelectedCategories] =
     useState<SpotCategory[]>(DEFAULT_FILTERS);
+  const [qualityFilter, setQualityFilter] =
+    useState<SpotQualityFilter>('all');
+  const [spotSort, setSpotSort] = useState<SpotSort>('quality');
+  const visibleSpots = useMemo(
+    () => filterAndSortSpots(spots, qualityFilter, spotSort, region),
+    [qualityFilter, region, spotSort, spots],
+  );
+  const resultMessage =
+    spots.length === 0
+      ? undefined
+      : visibleSpots.length === 0
+        ? 'No places match this quality filter.'
+        : `${visibleSpots.length} of ${spots.length} places shown`;
 
   const finishBrandSplash = useCallback(() => {
     setShowsBrandSplash(false);
@@ -159,11 +198,11 @@ export default function App() {
 
     try {
       const results = await searchSpots(region, selectedCategories);
-      setSpots(results.slice(0, 40));
+      setSpots(results);
       setMessage(
         results.length === 0
           ? 'No outdoor places found here. Move the map and try again.'
-          : `${Math.min(results.length, 40)} places found`,
+          : undefined,
       );
     } catch {
       setMessage('Places could not be loaded. Check your connection and try again.');
@@ -199,11 +238,12 @@ export default function App() {
         }}
         onPress={() => setSelectedSpot(undefined)}
       >
-        {spots.map((spot) => (
+        {visibleSpots.map((spot, index) => (
           <Marker
             anchor={{ x: 0.5, y: 1 }}
             key={spot.id}
             coordinate={spot.coordinate}
+            zIndex={visibleSpots.length - index}
             stopPropagation
             tappable
             onPress={() => setSelectedSpot(spot)}
@@ -240,29 +280,50 @@ export default function App() {
             {PLACE_FILTERS.map((filter) => {
               const selected = selectedCategories.includes(filter.category);
               return (
-                <Pressable
-                  accessibilityRole="button"
-                  accessibilityState={{ selected }}
+                <FilterChip
                   key={filter.category}
+                  label={filter.label}
+                  selected={selected}
                   onPress={() => toggleCategory(filter.category)}
-                  style={[
-                    styles.filterChip,
-                    selected && styles.filterChipSelected,
-                  ]}
-                >
-                  <Text
-                    style={[
-                      styles.filterText,
-                      selected && styles.filterTextSelected,
-                    ]}
-                  >
-                    {filter.label}
-                  </Text>
-                </Pressable>
+                />
               );
             })}
           </ScrollView>
-          {message && <Text style={styles.message}>{message}</Text>}
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.filterContent}
+            style={styles.filters}
+          >
+            <Text style={styles.filterGroupLabel}>QUALITY</Text>
+            {QUALITY_FILTERS.map((filter) => (
+              <FilterChip
+                key={filter.value}
+                label={filter.label}
+                selected={qualityFilter === filter.value}
+                onPress={() => {
+                  setQualityFilter(filter.value);
+                  setSelectedSpot(undefined);
+                }}
+              />
+            ))}
+            <View style={styles.filterDivider} />
+            <Text style={styles.filterGroupLabel}>SORT</Text>
+            {SORT_OPTIONS.map((option) => (
+              <FilterChip
+                key={option.value}
+                label={option.label}
+                selected={spotSort === option.value}
+                onPress={() => {
+                  setSpotSort(option.value);
+                  setSelectedSpot(undefined);
+                }}
+              />
+            ))}
+          </ScrollView>
+          {(message ?? resultMessage) && (
+            <Text style={styles.message}>{message ?? resultMessage}</Text>
+          )}
           <View style={styles.actions}>
             <Pressable
               accessibilityRole="button"
@@ -365,28 +426,23 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   filterContent: {
+    alignItems: 'center',
     gap: 7,
     paddingHorizontal: 16,
+    paddingTop: 5,
   },
-  filterChip: {
-    borderWidth: 1,
-    borderColor: '#CFC5B8',
-    borderRadius: 16,
-    backgroundColor: '#FFFCF7',
-    paddingHorizontal: 12,
-    paddingVertical: 8,
+  filterGroupLabel: {
+    color: '#8B8378',
+    fontSize: 9,
+    fontWeight: '800',
+    letterSpacing: 0.8,
+    marginRight: 2,
   },
-  filterChipSelected: {
-    borderColor: '#B95B2D',
-    backgroundColor: '#F7E7D2',
-  },
-  filterText: {
-    color: '#777066',
-    fontSize: 12,
-    fontWeight: '700',
-  },
-  filterTextSelected: {
-    color: '#8B4524',
+  filterDivider: {
+    width: 1,
+    height: 22,
+    backgroundColor: '#D8D0C5',
+    marginHorizontal: 3,
   },
   message: {
     color: '#4D4841',

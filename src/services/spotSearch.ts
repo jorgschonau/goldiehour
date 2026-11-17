@@ -2,6 +2,7 @@ import type { Region } from 'react-native-maps';
 import tzLookup from 'tz-lookup';
 
 import type { Spot, SpotCategory } from '../types';
+import { calculateSpotQuality } from './spotQuality';
 
 const NOMINATIM_URL = 'https://nominatim.openstreetmap.org/search';
 const SEARCHES: Array<{ query: string; category: SpotCategory }> = [
@@ -19,6 +20,7 @@ type NominatimPlace = {
   lon: string;
   name?: string;
   display_name: string;
+  importance?: number;
   extratags?: Record<string, string>;
   address?: {
     city?: string;
@@ -140,6 +142,18 @@ function toSpot(
     place.name?.trim() ||
     place.display_name.split(',')[0]?.trim() ||
     fallbackName(category);
+  const elevationMeters = parsedElevation(extra.ele);
+  const quality = calculateSpotQuality({
+    category,
+    hasMappedName: Boolean(place.name?.trim()),
+    importance: place.importance,
+    hasWikipedia: Boolean(extra.wikipedia),
+    hasWikidata: Boolean(extra.wikidata),
+    hasDescription: Boolean(extra.description),
+    hasImage: Boolean(extra.image || extra.mapillary),
+    elevationMeters,
+    access: extra.access,
+  });
 
   return {
     id: `osm:${place.place_id}`,
@@ -153,9 +167,11 @@ function toSpot(
     region: address.state,
     category,
     timeZone: tzLookup(latitude, longitude),
-    elevationMeters: parsedElevation(extra.ele),
+    elevationMeters,
     access: extra.access,
     description: extra.description,
+    qualityScore: quality.score,
+    qualitySignals: quality.signals,
   };
 }
 
