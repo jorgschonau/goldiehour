@@ -16,6 +16,7 @@ export type SpotSort = 'quality' | 'distance';
 
 export type Spot = {
   id: string;
+  kind: 'osm' | 'custom';
   name: string;
   coordinate: Coordinate;
   locality?: string;

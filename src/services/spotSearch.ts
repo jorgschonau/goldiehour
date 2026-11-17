@@ -157,6 +157,7 @@ function toSpot(
 
   return {
     id: `osm:${place.place_id}`,
+    kind: 'osm',
     name,
     coordinate: { latitude, longitude },
     locality:

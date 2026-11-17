@@ -6,6 +6,7 @@ import type { Spot } from '../types';
 
 type Props = {
   category: Spot['category'];
+  custom?: boolean;
   selected: boolean;
 };
 
@@ -19,17 +20,29 @@ const iconByCategory: Record<Spot['category'], IconName> = {
   camp: 'tent',
 };
 
-export function SpotMarker({ category, selected }: Props) {
+export function SpotMarker({ category, custom = false, selected }: Props) {
   return (
     <View pointerEvents="none" style={styles.container}>
-      <View style={[styles.marker, selected && styles.markerSelected]}>
+      <View
+        style={[
+          styles.marker,
+          custom && styles.customMarker,
+          selected && styles.markerSelected,
+        ]}
+      >
         <MaterialCommunityIcons
           color="#FFF9EF"
-          name={iconByCategory[category]}
+          name={custom ? 'map-marker-radius' : iconByCategory[category]}
           size={selected ? 22 : 19}
         />
       </View>
-      <View style={[styles.pointer, selected && styles.pointerSelected]} />
+      <View
+        style={[
+          styles.pointer,
+          custom && styles.customPointer,
+          selected && styles.pointerSelected,
+        ]}
+      />
     </View>
   );
 }
@@ -61,6 +74,9 @@ const styles = StyleSheet.create({
     borderRadius: 23,
     backgroundColor: '#72391F',
   },
+  customMarker: {
+    backgroundColor: '#3F5F66',
+  },
   pointer: {
     width: 0,
     height: 0,
@@ -74,5 +90,8 @@ const styles = StyleSheet.create({
   },
   pointerSelected: {
     borderTopColor: '#72391F',
+  },
+  customPointer: {
+    borderTopColor: '#3F5F66',
   },
 });

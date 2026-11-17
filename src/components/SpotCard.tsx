@@ -27,12 +27,15 @@ export function SpotCard({ spot, onClose }: Props) {
     return solarSchedule(localDate, spot.coordinate, spot.timeZone);
   }, [spot]);
 
-  const region = [spot.locality, spot.region].filter(Boolean).join(', ');
-  const profile = spotProfile(spot);
+  const region =
+    spot.kind === 'custom'
+      ? `${spot.coordinate.latitude.toFixed(4)}, ${spot.coordinate.longitude.toFixed(4)}`
+      : [spot.locality, spot.region].filter(Boolean).join(', ');
+  const profile = spot.kind === 'osm' ? spotProfile(spot) : undefined;
   const strengths = Array.from(
     new Set([
       ...spot.qualitySignals,
-      ...profile.strengths,
+      ...(profile?.strengths ?? []),
       ...(spot.elevationMeters !== undefined
         ? [`${Math.round(spot.elevationMeters)} m elevation`]
         : []),
@@ -73,23 +76,32 @@ export function SpotCard({ spot, onClose }: Props) {
         </Pressable>
       </View>
 
-      <View style={styles.qualityBox}>
-        <Text style={styles.qualityEyebrow}>WHY THIS SPOT WORKS</Text>
-        <Text style={styles.qualityLevel}>
-          {qualityLabel(spot.qualityScore)}
-        </Text>
-        <Text style={styles.qualityReason}>{profile.reason}</Text>
-        <Text style={styles.qualityMethod}>
-          Ranked from place type and OpenStreetMap detail, not weather.
-        </Text>
-        <View style={styles.strengths}>
-          {strengths.map((strength) => (
-            <View key={strength} style={styles.strengthChip}>
-              <Text style={styles.strengthText}>{strength}</Text>
-            </View>
-          ))}
+      {profile ? (
+        <View style={styles.qualityBox}>
+          <Text style={styles.qualityEyebrow}>WHY THIS SPOT WORKS</Text>
+          <Text style={styles.qualityLevel}>
+            {qualityLabel(spot.qualityScore)}
+          </Text>
+          <Text style={styles.qualityReason}>{profile.reason}</Text>
+          <Text style={styles.qualityMethod}>
+            Ranked from place type and OpenStreetMap detail, not weather.
+          </Text>
+          <View style={styles.strengths}>
+            {strengths.map((strength) => (
+              <View key={strength} style={styles.strengthChip}>
+                <Text style={styles.strengthText}>{strength}</Text>
+              </View>
+            ))}
+          </View>
         </View>
-      </View>
+      ) : (
+        <View style={styles.qualityBox}>
+          <Text style={styles.qualityEyebrow}>CHOSEN LOCATION</Text>
+          <Text style={styles.customLocationText}>
+            Exact point selected by pressing and holding the map.
+          </Text>
+        </View>
+      )}
 
       {schedule.status === 'normal' ? (
         <>
@@ -316,6 +328,12 @@ const styles = StyleSheet.create({
     fontSize: 11,
     lineHeight: 15,
     marginTop: 5,
+  },
+  customLocationText: {
+    color: '#3D3933',
+    fontSize: 13,
+    lineHeight: 18,
+    marginTop: 6,
   },
   strengths: {
     flexDirection: 'row',

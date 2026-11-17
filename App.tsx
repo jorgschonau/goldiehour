@@ -19,6 +19,7 @@ import * as Location from 'expo-location';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import MapView, { Marker, type Region } from 'react-native-maps';
+import tzLookup from 'tz-lookup';
 
 import { BrandSplash } from './src/components/BrandSplash';
 import { FilterChip } from './src/components/FilterChip';
@@ -77,6 +78,7 @@ export default function App() {
   );
   const [userCoordinate, setUserCoordinate] = useState<Coordinate>();
   const [spots, setSpots] = useState<Spot[]>([]);
+  const [customSpot, setCustomSpot] = useState<Spot>();
   const [selectedSpot, setSelectedSpot] = useState<Spot>();
   const [isSearching, setIsSearching] = useState(false);
   const [isLocating, setIsLocating] = useState(false);
@@ -124,6 +126,8 @@ export default function App() {
   }
 
   function applyUserLocation(coordinate: Coordinate, animated = true) {
+    setCustomSpot(undefined);
+    setSelectedSpot(undefined);
     setUserCoordinate(coordinate);
     const nextRegion: Region = {
       ...coordinate,
@@ -135,6 +139,30 @@ export default function App() {
     if (animated) {
       mapRef.current?.animateToRegion(nextRegion, 500);
     }
+  }
+
+  function chooseCustomLocation(coordinate: Coordinate) {
+    const nextRegion: Region = {
+      ...coordinate,
+      latitudeDelta: Math.min(region.latitudeDelta, 0.16),
+      longitudeDelta: Math.min(region.longitudeDelta, 0.16),
+    };
+    const spot: Spot = {
+      id: 'custom-location',
+      kind: 'custom',
+      name: 'Chosen location',
+      coordinate,
+      category: 'viewpoint',
+      timeZone: timeZoneAt(coordinate),
+      qualityScore: 0,
+      qualitySignals: [],
+    };
+
+    setCustomSpot(spot);
+    setSelectedSpot(spot);
+    setMessage(undefined);
+    setRegion(nextRegion);
+    mapRef.current?.animateToRegion(nextRegion, 350);
   }
 
   async function handleLocationPress() {
@@ -238,7 +266,27 @@ export default function App() {
           setMessage(undefined);
         }}
         onPress={() => setSelectedSpot(undefined)}
+        onLongPress={({ nativeEvent }) => {
+          chooseCustomLocation(nativeEvent.coordinate);
+        }}
       >
+        {customSpot && (
+          <Marker
+            anchor={{ x: 0.5, y: 1 }}
+            coordinate={customSpot.coordinate}
+            zIndex={visibleSpots.length + 1}
+            stopPropagation
+            tappable
+            onPress={() => setSelectedSpot(customSpot)}
+            onSelect={() => setSelectedSpot(customSpot)}
+          >
+            <SpotMarker
+              category={customSpot.category}
+              custom
+              selected={selectedSpot?.id === customSpot.id}
+            />
+          </Marker>
+        )}
         {visibleSpots.map((spot, index) => (
           <Marker
             anchor={{ x: 0.5, y: 1 }}
@@ -389,6 +437,9 @@ export default function App() {
           </View>
           <Text style={styles.attribution}>
             Place data © OpenStreetMap contributors
+          </Text>
+          <Text style={styles.mapHint}>
+            Press and hold the map to choose any location
           </Text>
         </SafeAreaView>
       )}
@@ -568,7 +619,14 @@ const styles = StyleSheet.create({
     color: '#8B8378',
     fontSize: 10,
     textAlign: 'center',
-    paddingVertical: 7,
+    paddingTop: 7,
+    paddingBottom: 2,
+  },
+  mapHint: {
+    color: '#8B8378',
+    fontSize: 10,
+    textAlign: 'center',
+    paddingBottom: 6,
   },
   pressed: {
     opacity: 0.8,
@@ -577,3 +635,11 @@ const styles = StyleSheet.create({
     opacity: 0.65,
   },
 });
+
+function timeZoneAt(coordinate: Coordinate): string {
+  try {
+    return tzLookup(coordinate.latitude, coordinate.longitude);
+  } catch {
+    return 'UTC';
+  }
+}
