@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   Alert,
   Linking,
@@ -9,9 +9,11 @@ import {
   View,
 } from 'react-native';
 import * as Location from 'expo-location';
+import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import MapView, { Marker, type Region } from 'react-native-maps';
 
+import { BrandSplash } from './src/components/BrandSplash';
 import { SpotCard } from './src/components/SpotCard';
 import {
   loadLocationState,
@@ -28,6 +30,8 @@ const FALLBACK_REGION: Region = {
   longitudeDelta: 75,
 };
 
+void SplashScreen.preventAutoHideAsync().catch(() => {});
+
 export default function App() {
   const mapRef = useRef<MapView>(null);
   const [region, setRegion] = useState<Region>(FALLBACK_REGION);
@@ -40,6 +44,11 @@ export default function App() {
   const [isSearching, setIsSearching] = useState(false);
   const [isLocating, setIsLocating] = useState(false);
   const [message, setMessage] = useState<string>();
+  const [showsBrandSplash, setShowsBrandSplash] = useState(true);
+
+  const finishBrandSplash = useCallback(() => {
+    setShowsBrandSplash(false);
+  }, []);
 
   useEffect(() => {
     void initializeLocation();
@@ -134,6 +143,15 @@ export default function App() {
     } finally {
       setIsSearching(false);
     }
+  }
+
+  if (showsBrandSplash) {
+    return (
+      <BrandSplash
+        onReady={() => void SplashScreen.hideAsync()}
+        onFinish={finishBrandSplash}
+      />
+    );
   }
 
   return (

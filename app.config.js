@@ -10,7 +10,9 @@ export default {
     orientation: 'portrait',
     userInterfaceStyle: 'automatic',
     splash: {
-      backgroundColor: '#F7F2E8',
+      image: './assets/goldieapps.png',
+      resizeMode: 'contain',
+      backgroundColor: '#F5F0EB',
     },
     ios: {
       supportsTablet: false,
@@ -29,6 +31,14 @@ export default {
         },
       ],
       'expo-status-bar',
+      [
+        'expo-splash-screen',
+        {
+          backgroundColor: '#F5F0EB',
+          image: './assets/goldieapps.png',
+          imageWidth: 200,
+        },
+      ],
     ],
     extra: {
       appVariant: IS_DEV ? 'development' : 'production',
