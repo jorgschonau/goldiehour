@@ -21,7 +21,7 @@ const iconByCategory: Record<Spot['category'], IconName> = {
 
 export function SpotMarker({ category, selected }: Props) {
   return (
-    <View style={styles.container}>
+    <View pointerEvents="none" style={styles.container}>
       <View style={[styles.marker, selected && styles.markerSelected]}>
         <MaterialCommunityIcons
           color="#FFF9EF"
@@ -37,6 +37,8 @@ export function SpotMarker({ category, selected }: Props) {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
+    paddingHorizontal: 8,
+    paddingTop: 8,
     paddingBottom: 3,
   },
   marker: {

@@ -178,7 +178,10 @@ export default function App() {
             anchor={{ x: 0.5, y: 1 }}
             key={spot.id}
             coordinate={spot.coordinate}
+            stopPropagation
+            tappable
             onPress={() => setSelectedSpot(spot)}
+            onSelect={() => setSelectedSpot(spot)}
           >
             <SpotMarker
               category={spot.category}
@@ -192,7 +195,7 @@ export default function App() {
         <View style={styles.header}>
           <View>
             <Text style={styles.eyebrow}>GOLDIEHOUR</Text>
-            <Text style={styles.title}>Find your best light</Text>
+            <Text style={styles.title}>Sunrise & sunset planner</Text>
           </View>
           <View style={styles.datePill}>
             <Text style={styles.dateText}>Today</Text>

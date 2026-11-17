@@ -83,16 +83,22 @@ export function SpotCard({ spot, onClose }: Props) {
 
       {schedule.status === 'normal' ? (
         <>
+          <View style={styles.lightIntro}>
+            <Text style={styles.lightEyebrow}>BEST LIGHT TODAY</Text>
+            <Text style={styles.lightExplanation}>
+              Warm, low-angle light around sunrise and sunset.
+            </Text>
+          </View>
           <View style={styles.goldenRow}>
             <GoldenTime
-              label="Morning"
+              label="Morning golden hour"
               value={formatInterval(
                 schedule.morningGoldenHour,
                 spot.timeZone,
               )}
             />
             <GoldenTime
-              label="Evening"
+              label="Evening golden hour"
               value={formatInterval(
                 schedule.eveningGoldenHour,
                 spot.timeZone,
@@ -137,7 +143,9 @@ export function SpotCard({ spot, onClose }: Props) {
 function GoldenTime({ label, value }: { label: string; value: string }) {
   return (
     <View style={styles.goldenBox}>
-      <Text style={styles.goldenLabel}>{label}</Text>
+      <Text style={styles.goldenLabel} numberOfLines={1} adjustsFontSizeToFit>
+        {label}
+      </Text>
       <Text style={styles.goldenTime} numberOfLines={1} adjustsFontSizeToFit>
         {value}
       </Text>
@@ -304,10 +312,24 @@ const styles = StyleSheet.create({
     fontSize: 11,
     fontWeight: '700',
   },
+  lightIntro: {
+    marginTop: 15,
+  },
+  lightEyebrow: {
+    color: '#8B5B3D',
+    fontSize: 10,
+    fontWeight: '800',
+    letterSpacing: 1.1,
+  },
+  lightExplanation: {
+    color: '#655D53',
+    fontSize: 12,
+    marginTop: 4,
+  },
   goldenRow: {
     flexDirection: 'row',
     gap: 10,
-    marginTop: 16,
+    marginTop: 9,
   },
   goldenBox: {
     flex: 1,
