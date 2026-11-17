@@ -28,6 +28,7 @@ export default {
             'GoldieHour uses your location to show nearby places and their best light times.',
         },
       ],
+      'expo-status-bar',
     ],
     extra: {
       appVariant: IS_DEV ? 'development' : 'production',

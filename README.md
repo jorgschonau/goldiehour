@@ -38,7 +38,7 @@ npx expo export --platform ios
 
 ## Architecture
 
-- Expo SDK 54 and React Native
+- Expo SDK 58 and React Native
 - Apple Maps through `react-native-maps` on iOS
 - Location through `expo-location`
 - Local NOAA-based solar calculations
