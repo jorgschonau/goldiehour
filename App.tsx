@@ -15,6 +15,7 @@ import MapView, { Marker, type Region } from 'react-native-maps';
 
 import { BrandSplash } from './src/components/BrandSplash';
 import { SpotCard } from './src/components/SpotCard';
+import { SpotMarker } from './src/components/SpotMarker';
 import {
   loadLocationState,
   refreshLocation,
@@ -174,13 +175,16 @@ export default function App() {
       >
         {spots.map((spot) => (
           <Marker
+            anchor={{ x: 0.5, y: 1 }}
             key={spot.id}
             coordinate={spot.coordinate}
-            pinColor="#D66D33"
-            title={spot.name}
-            description={[spot.locality, spot.region].filter(Boolean).join(', ')}
             onPress={() => setSelectedSpot(spot)}
-          />
+          >
+            <SpotMarker
+              category={spot.category}
+              selected={selectedSpot?.id === spot.id}
+            />
+          </Marker>
         ))}
       </MapView>
 

@@ -27,6 +27,14 @@ export function SpotCard({ spot, onClose }: Props) {
   }, [spot]);
 
   const region = [spot.locality, spot.region].filter(Boolean).join(', ');
+  const profile = spotProfile(spot);
+  const strengths = [
+    ...profile.strengths,
+    ...(spot.elevationMeters !== undefined
+      ? [`${Math.round(spot.elevationMeters)} m elevation`]
+      : []),
+    ...accessStrength(spot.access),
+  ];
 
   async function openDirections() {
     const { latitude, longitude } = spot.coordinate;
@@ -59,6 +67,18 @@ export function SpotCard({ spot, onClose }: Props) {
         >
           <Text style={styles.closeText}>×</Text>
         </Pressable>
+      </View>
+
+      <View style={styles.qualityBox}>
+        <Text style={styles.qualityEyebrow}>WHY THIS SPOT WORKS</Text>
+        <Text style={styles.qualityReason}>{profile.reason}</Text>
+        <View style={styles.strengths}>
+          {strengths.map((strength) => (
+            <View key={strength} style={styles.strengthChip}>
+              <Text style={styles.strengthText}>{strength}</Text>
+            </View>
+          ))}
+        </View>
       </View>
 
       {schedule.status === 'normal' ? (
@@ -157,6 +177,47 @@ function statusDescription(
   }
 }
 
+function spotProfile(spot: Spot) {
+  switch (spot.category) {
+    case 'viewpoint':
+      return {
+        reason:
+          'Mapped specifically as a viewpoint, so it is intended to offer clear outward sightlines when the sun is low.',
+        strengths: ['Purpose-built view', 'Wide sightlines'],
+      };
+    case 'beach':
+      return {
+        reason:
+          'The water edge usually gives a lower, more open horizon and can add reflected color around sunrise or sunset.',
+        strengths: ['Low horizon', 'Water reflections'],
+      };
+    case 'park':
+      return {
+        reason:
+          'Open space gives you room to reposition as the light changes and find a clean foreground.',
+        strengths: ['Open space', 'Room to reposition'],
+      };
+    case 'nature':
+      return {
+        reason:
+          'Natural surroundings can provide stronger foregrounds and less visual clutter than a built-up location.',
+        strengths: ['Natural foregrounds', 'Lower urban clutter'],
+      };
+    case 'camp':
+      return {
+        reason:
+          'A nearby base makes very early sunrise and late blue-hour sessions easier to plan.',
+        strengths: ['Early starts', 'Late finishes'],
+      };
+  }
+}
+
+function accessStrength(access: string | undefined): string[] {
+  if (access === 'yes' || access === 'public') return ['Public access'];
+  if (access === 'permissive') return ['Permissive access'];
+  return [];
+}
+
 const styles = StyleSheet.create({
   card: {
     position: 'absolute',
@@ -207,6 +268,41 @@ const styles = StyleSheet.create({
     color: '#4D4841',
     fontSize: 24,
     lineHeight: 25,
+  },
+  qualityBox: {
+    borderRadius: 16,
+    backgroundColor: '#F0EEE7',
+    padding: 13,
+    marginTop: 14,
+  },
+  qualityEyebrow: {
+    color: '#8B5B3D',
+    fontSize: 10,
+    fontWeight: '800',
+    letterSpacing: 1.1,
+  },
+  qualityReason: {
+    color: '#3D3933',
+    fontSize: 13,
+    lineHeight: 18,
+    marginTop: 5,
+  },
+  strengths: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 6,
+    marginTop: 9,
+  },
+  strengthChip: {
+    borderRadius: 12,
+    backgroundColor: '#FFFCF7',
+    paddingHorizontal: 9,
+    paddingVertical: 5,
+  },
+  strengthText: {
+    color: '#655D53',
+    fontSize: 11,
+    fontWeight: '700',
   },
   goldenRow: {
     flexDirection: 'row',

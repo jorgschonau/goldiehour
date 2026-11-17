@@ -19,6 +19,7 @@ type NominatimPlace = {
   lon: string;
   name?: string;
   display_name: string;
+  extratags?: Record<string, string>;
   address?: {
     city?: string;
     town?: string;
@@ -85,6 +86,7 @@ async function searchNominatim(
     bounded: '1',
     limit: '8',
     addressdetails: '1',
+    extratags: '1',
   });
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 8_000);
@@ -122,6 +124,11 @@ function toSpot(
   }
 
   const address = place.address ?? {};
+  const extra = place.extratags ?? {};
+  if (extra.access === 'private' || extra.access === 'no') {
+    return undefined;
+  }
+
   const name =
     place.name?.trim() ||
     place.display_name.split(',')[0]?.trim() ||
@@ -139,7 +146,16 @@ function toSpot(
     region: address.state,
     category,
     timeZone: tzLookup(latitude, longitude),
+    elevationMeters: parsedElevation(extra.ele),
+    access: extra.access,
+    description: extra.description,
   };
+}
+
+function parsedElevation(value: string | undefined): number | undefined {
+  if (!value) return undefined;
+  const elevation = Number.parseFloat(value);
+  return Number.isFinite(elevation) ? elevation : undefined;
 }
 
 function cappedSearchRegion(region: Region): Region {

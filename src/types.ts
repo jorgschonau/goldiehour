@@ -11,6 +11,9 @@ export type Spot = {
   region?: string;
   category: 'viewpoint' | 'beach' | 'park' | 'nature' | 'camp';
   timeZone: string;
+  elevationMeters?: number;
+  access?: string;
+  description?: string;
 };
 
 export type LocalDate = {
